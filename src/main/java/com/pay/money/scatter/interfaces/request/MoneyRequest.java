@@ -3,7 +3,7 @@ package com.pay.money.scatter.interfaces.request;
 public class MoneyRequest {
     private Long money;
 
-    private Long numOfPeople;
+    private Long divisionCount;
 
     public MoneyRequest() {
     }
@@ -12,7 +12,7 @@ public class MoneyRequest {
         return money;
     }
 
-    public Long getNumOfPeople() {
-        return numOfPeople;
+    public Long getDivisionCount() {
+        return divisionCount;
     }
 }

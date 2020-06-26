@@ -7,7 +7,7 @@ import com.pay.money.scatter.interfaces.request.MoneyRequest;
 import com.pay.money.scatter.interfaces.response.MoneyView;
 import com.pay.money.scatter.interfaces.response.ScatteredMoneyHistoryView;
 import com.pay.money.scatter.interfaces.response.TokenView;
-import com.pay.money.scatter.service.MoneyService;
+import com.pay.money.scatter.service.money.MoneyService;
 import com.pay.money.scatter.service.TokenService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,9 +29,9 @@ public class MoneyController {
     @PostMapping
     public ResponseEntity<TokenView> scatterMoney(@RequestHeader("X-USER-ID") final Long userId,
                                                   @RequestHeader("X-ROOM-ID") final Long roomId,
-                                                  @RequestBody final MoneyRequest request) {
+                                                  @RequestBody MoneyRequest request) {
         final Token token = tokenService.createToken(userId, roomId);
-        moneyService.scatter(token, request.getMoney(), request.getNumOfPeople());
+        moneyService.scatter(token, request.getMoney(), request.getDivisionCount());
         return ResponseEntity.ok(TokenView.of(token));
     }
 
