@@ -46,4 +46,8 @@ public class Token {
         this.usingExpiredAt = this.createdAt.plusMinutes(10L);
         this.readingExpiredAt = this.createdAt.plusDays(7L);
     }
+
+    public String toString() {
+        return value;
+    }
 }
