@@ -1,7 +1,9 @@
 package com.pay.money.scatter.interfaces;
 
+import com.pay.money.scatter.domain.model.AssignedMoney;
 import com.pay.money.scatter.domain.model.Token;
 import com.pay.money.scatter.interfaces.request.MoneyRequest;
+import com.pay.money.scatter.interfaces.response.MoneyView;
 import com.pay.money.scatter.interfaces.response.TokenView;
 import com.pay.money.scatter.service.MoneyService;
 import com.pay.money.scatter.service.TokenService;
@@ -27,5 +29,14 @@ public class MoneyController {
         final Token token = tokenService.createToken(userId, roomId);
         moneyService.scatter(token, request.getMoney(), request.getNumOfPeople());
         return ResponseEntity.ok(TokenView.of(token));
+    }
+
+    @GetMapping
+    public ResponseEntity<MoneyView> assignMoney(@RequestHeader("X-USER-ID") final Long userId,
+                                                 @RequestHeader("X-ROOM-ID") final Long roomId,
+                                                 @RequestParam("token") final String value) {
+        final Token token = tokenService.getUsingToken(value, userId, roomId);
+        final AssignedMoney money = moneyService.assign(token, userId);
+        return ResponseEntity.ok(MoneyView.of(money));
     }
 }

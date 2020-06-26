@@ -31,4 +31,12 @@ public class ScatteredMoney {
         this.token = token;
         this.assigned = false;
     }
+
+    public Long toLong() {
+        return value;
+    }
+
+    public void assign() {
+        this.assigned = true;
+    }
 }

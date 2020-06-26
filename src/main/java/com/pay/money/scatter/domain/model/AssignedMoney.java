@@ -37,4 +37,8 @@ public class AssignedMoney {
         this.assignor = assignor;
         this.assignedAt = LocalDateTime.now();
     }
+
+    public Long toLong() {
+        return this.scatteredMoney.toLong();
+    }
 }
