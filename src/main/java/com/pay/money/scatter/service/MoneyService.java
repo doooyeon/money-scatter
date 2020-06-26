@@ -49,4 +49,14 @@ public class MoneyService {
         scatteredMoney.assign();
         return assignedMoneyRepository.save(assignedMoney);
     }
+
+    @Transactional
+    public List<ScatteredMoney> getScatteredMoneys(final Token token) {
+        return scatteredMoneyRepository.findAllByToken(token);
+    }
+
+    @Transactional
+    public List<AssignedMoney> getAssignedMoneys(final Token token) {
+        return assignedMoneyRepository.findAllByToken(token);
+    }
 }

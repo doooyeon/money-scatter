@@ -41,4 +41,8 @@ public class AssignedMoney {
     public Long toLong() {
         return this.scatteredMoney.toLong();
     }
+
+    public Long getAssignor() {
+        return assignor;
+    }
 }

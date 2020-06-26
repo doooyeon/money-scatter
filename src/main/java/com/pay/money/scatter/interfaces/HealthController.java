@@ -1,4 +1,4 @@
-package com.pay.money.scatter;
+package com.pay.money.scatter.interfaces;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

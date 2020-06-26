@@ -9,4 +9,6 @@ import java.util.List;
 public interface ScatteredMoneyRepository extends JpaRepository<ScatteredMoney, Long> {
 
     List<ScatteredMoney> findAllByTokenAndAssignedIsFalse(final Token token);
+
+    List<ScatteredMoney> findAllByToken(final Token token);
 }
