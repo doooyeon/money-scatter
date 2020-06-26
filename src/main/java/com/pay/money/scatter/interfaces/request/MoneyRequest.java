@@ -8,6 +8,11 @@ public class MoneyRequest {
     public MoneyRequest() {
     }
 
+    public MoneyRequest(final Long money, final Long divisionCount) {
+        this.money = money;
+        this.divisionCount = divisionCount;
+    }
+
     public Long getMoney() {
         return money;
     }

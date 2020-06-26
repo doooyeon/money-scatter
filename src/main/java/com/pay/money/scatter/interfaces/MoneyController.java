@@ -9,6 +9,7 @@ import com.pay.money.scatter.interfaces.response.ScatteredMoneyHistoryView;
 import com.pay.money.scatter.interfaces.response.TokenView;
 import com.pay.money.scatter.service.money.MoneyService;
 import com.pay.money.scatter.service.token.TokenService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,7 @@ public class MoneyController {
                                                   @RequestBody MoneyRequest request) {
         final Token token = tokenService.createToken(userId, roomId);
         moneyService.scatter(token, request.getMoney(), request.getDivisionCount());
-        return ResponseEntity.ok(TokenView.of(token));
+        return ResponseEntity.status(HttpStatus.CREATED).body(TokenView.of(token));
     }
 
     @GetMapping
