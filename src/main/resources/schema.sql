@@ -14,7 +14,7 @@ CREATE TABLE `token` (
   `reading_expired_at` datetime(6) NOT NULL,
 
   PRIMARY KEY (`id`),
-  KEY `token_room_idx` (`value`, `room_id`)
+  KEY `token_idx` (`value`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 CREATE TABLE `scattered_money` (
@@ -26,8 +26,7 @@ CREATE TABLE `scattered_money` (
   `assigned` bit(1) DEFAULT FALSE NOT NULL,
 
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`token_id`) REFERENCES token (`id`),
-  KEY `token_idx` (`token_id`)
+  FOREIGN KEY (`token_id`) REFERENCES token (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 CREATE TABLE `assigned_money` (
@@ -41,7 +40,5 @@ CREATE TABLE `assigned_money` (
 
   PRIMARY KEY (`id`),
   FOREIGN KEY (`scattered_money_id`) REFERENCES scattered_money (`id`),
-  FOREIGN KEY (`token_id`) REFERENCES token (`id`),
-  KEY `scattered_money_idx` (`scattered_money_id`),
-  KEY `token_idx` (`token_id`)
+  FOREIGN KEY (`token_id`) REFERENCES token (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
