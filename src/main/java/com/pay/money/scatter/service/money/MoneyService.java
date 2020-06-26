@@ -5,6 +5,8 @@ import com.pay.money.scatter.domain.model.ScatteredMoney;
 import com.pay.money.scatter.domain.repository.AssignedMoneyRepository;
 import com.pay.money.scatter.domain.repository.ScatteredMoneyRepository;
 import com.pay.money.scatter.domain.model.Token;
+import com.pay.money.scatter.exception.UnAuthorizedException;
+import com.pay.money.scatter.exception.EntityDuplicationException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -37,13 +39,10 @@ public class MoneyService {
 
     @Transactional
     public AssignedMoney assign(final Token token, final Long userId) {
-        if (assignedMoneyRepository.existsByTokenAndAssignor(token, userId)) {
-            throw new IllegalArgumentException("이미 받음");
-        }
+        if (assignedMoneyRepository.existsByTokenAndAssignor(token, userId)) throw new EntityDuplicationException("이미 받은 뿌리기 건입니다.");
+
         final List<ScatteredMoney> unAssignedMoneys = scatteredMoneyRepository.findAllByTokenAndAssignedIsFalse(token);
-        if (unAssignedMoneys.isEmpty()) {
-            throw new IllegalArgumentException("다 받음");
-        }
+        if (unAssignedMoneys.isEmpty()) throw new UnAuthorizedException("해당 뿌리기 건은 분배가 완료되었습니다.");
 
         final ScatteredMoney scatteredMoney = unAssignedMoneys.get(0);
         final AssignedMoney assignedMoney = AssignedMoney.of(scatteredMoney, token, userId);
