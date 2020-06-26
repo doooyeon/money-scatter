@@ -25,6 +25,14 @@ public class TokenService {
         return token;
     }
 
+    public Token getReadingToken(final String value, final Long userId, final Long roomId) {
+        final Token token = getToken(value, roomId);
+        if (token.readingExpired()) throw new IllegalArgumentException("토큰 읽기 유효기간 만료");
+        if (token.isInvalidRoom(roomId)) throw new IllegalArgumentException("방 정보가 일치하지 않음");
+        if (!token.isOwner(userId)) throw new IllegalArgumentException("뿌린 사람만 조회 가능");
+        return token;
+    }
+
     private Token getToken(final String value, final Long roomId) {
         return tokenRepository.findByValueAndRoomId(value, roomId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 토큰"));
     }
