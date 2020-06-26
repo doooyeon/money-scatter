@@ -1,7 +1,5 @@
 package com.pay.money.scatter.domain.model;
 
-import org.apache.commons.lang3.RandomStringUtils;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -30,8 +28,7 @@ public class Token {
     @Column
     private LocalDateTime readingExpiredAt;
 
-    public static Token of(final Long userId, final Long roomId) {
-        final String value =  RandomStringUtils.randomAlphabetic(3);
+    public static Token of(final String value, final Long userId, final Long roomId) {
         return new Token(value, userId, roomId);
     }
 

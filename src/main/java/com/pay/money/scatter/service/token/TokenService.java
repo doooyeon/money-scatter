@@ -1,4 +1,4 @@
-package com.pay.money.scatter.service;
+package com.pay.money.scatter.service.token;
 
 import com.pay.money.scatter.domain.model.Token;
 import com.pay.money.scatter.domain.repository.TokenRepository;
@@ -7,14 +7,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class TokenService {
 
+    private final int TOKEN_LENGTH = 3;
+
     private final TokenRepository tokenRepository;
 
-    public TokenService(final TokenRepository tokenRepository) {
+    private final TokenCreateStrategy tokenCreateStrategy;
+
+    public TokenService(final TokenRepository tokenRepository, final RandomTokenCreateStrategy randomTokenCreateStrategy) {
         this.tokenRepository = tokenRepository;
+        this.tokenCreateStrategy = randomTokenCreateStrategy;
     }
 
     public Token createToken(final Long userId, final Long roomId) {
-        return tokenRepository.save(Token.of(userId, roomId));
+        return tokenRepository.save(Token.of(tokenCreateStrategy.create(TOKEN_LENGTH).toString(), userId, roomId));
     }
 
     public Token getUsingToken(final String value, final Long userId, final Long roomId) {

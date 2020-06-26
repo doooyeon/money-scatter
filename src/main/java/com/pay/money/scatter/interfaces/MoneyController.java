@@ -8,7 +8,7 @@ import com.pay.money.scatter.interfaces.response.MoneyView;
 import com.pay.money.scatter.interfaces.response.ScatteredMoneyHistoryView;
 import com.pay.money.scatter.interfaces.response.TokenView;
 import com.pay.money.scatter.service.money.MoneyService;
-import com.pay.money.scatter.service.TokenService;
+import com.pay.money.scatter.service.token.TokenService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
