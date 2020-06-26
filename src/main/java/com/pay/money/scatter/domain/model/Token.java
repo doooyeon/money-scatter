@@ -50,4 +50,24 @@ public class Token {
     public String toString() {
         return value;
     }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public boolean usingExpired() {
+        return LocalDateTime.now().isAfter(this.usingExpiredAt);
+    }
+
+    public boolean readingExpired() {
+        return LocalDateTime.now().isAfter(this.readingExpiredAt);
+    }
+
+    public boolean isOwner(final Long userId) {
+        return userId.equals(this.userId);
+    }
+
+    public boolean isInvalidRoom(final Long roomId) {
+        return !roomId.equals(this.roomId);
+    }
 }
